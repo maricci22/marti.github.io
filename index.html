@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Animazione Bonifico Magico</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(#cce7ff, #ffffff);
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    #bonificoBtn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      z-index: 10;
+    }
+
+    #scene {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .lettera {
+      position: absolute;
+      top: 80%;
+      left: -150px;
+      width: 100px;
+      transition: transform 5s ease-in-out;
+    }
+
+    .casa {
+      position: absolute;
+      bottom: 10px;
+      right: 50px;
+      width: 150px;
+    }
+
+    .vola {
+      animation: voloAnimato 6s forwards;
+    }
+
+    @keyframes voloAnimato {
+      0% {
+        top: 80%;
+        left: -150px;
+        transform: rotate(0deg);
+      }
+      50% {
+        top: 20%;
+        left: 40%;
+        transform: rotate(10deg);
+      }
+      100% {
+        top: 60%;
+        left: 85%;
+        transform: rotate(-5deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="bonificoBtn">BONIFICO</button>
+  <div id="scene">
+    <img src="https://i.imgur.com/ppTCWgk.png" alt="Lettera Gufo" class="lettera" id="gufoLettera">
+    <img src="https://i.imgur.com/NtLbNd2.png" alt="Casa" class="casa">
+  </div>
+  <audio id="audio" loop>
+    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/PartOfYourWorld.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'elemento audio.
+  </audio>
+
+  <script>
+    const btn = document.getElementById('bonificoBtn');
+    const lettera = document.getElementById('gufoLettera');
+    const audio = document.getElementById('audio');
+
+    btn.addEventListener('click', () => {
+      lettera.classList.add('vola');
+      audio.play().catch(e => {
+        console.log("Audio bloccato dal browser:", e);
+      });
+    });
+  </script>
+</body>
+</html>
