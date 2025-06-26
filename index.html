@@ -92,9 +92,17 @@
       width: 200px;
       z-index: 20;
     }
+
+    /* Iframe audio nascosto */
+    #bgAudio {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Embed YouTube audio in background -->
+  <iframe id="bgAudio" src="https://www.youtube.com/embed/wH6VC-PP3dc?autoplay=1&loop=1&playlist=wH6VC-PP3dc&controls=0" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+
   <!-- Bottone per avviare l'animazione -->
   <button id="bonificoBtn">Sottoscrivo il contratto</button>
   <!-- Bottone di fine animazione -->
@@ -108,6 +116,13 @@
   </div>
 
   <script>
+    // Avvia audio di background non appena la pagina è pronta
+    document.addEventListener('DOMContentLoaded', () => {
+      const audioFrame = document.getElementById('bgAudio');
+      // Richiede autoplay API
+      audioFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    });
+
     const btn = document.getElementById('bonificoBtn');
     const scene = document.getElementById('scene');
     const owl = document.getElementById('owlLettera');
