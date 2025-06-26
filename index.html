@@ -31,6 +31,8 @@
     }
 
     #bonificoBtn { top: 50%; }
+    #fineBtn { display: none; top: 70%; }
+
     #bonificoBtn:active, #fineBtn:active {
       transform: translateX(-50%) scale(0.95);
       box-shadow: 0 0 30px rgba(125, 60, 152, 0.9);
@@ -42,10 +44,45 @@
       position: relative;
     }
 
-    .lettera, .scia, #topImage {
+    /* Lettera Gufo nascosta e animata */
+    .lettera {
       display: none;
+      position: absolute;
+      top: 80%;
+      left: -150px;
+      width: 120px;
+      transition: transform 5s ease-in-out;
+      z-index: 15;
     }
 
+    /* Scia luminosa */
+    .scia {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, rgba(255,255,255,0.9), transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fadeOut 2s linear forwards;
+      z-index: 10;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; transform: scale(2); }
+    }
+
+    /* Animazione volo lettera */
+    .vola {
+      animation: flyAnim 6s forwards;
+    }
+
+    @keyframes flyAnim {
+      0% { left: -150px; top: 80%; transform: rotate(0deg); }
+      100% { left: 110%; top: 80%; transform: rotate(0deg); }
+    }
+
+    /* Ursula nascosta fino al termine */
     #ursulaImg {
       display: none;
       position: absolute;
@@ -54,11 +91,6 @@
       transform: translate(-50%, -50%);
       width: 200px;
       z-index: 20;
-    }
-
-    #fineBtn {
-      display: none;
-      top: 70%;
     }
   </style>
 </head>
@@ -69,6 +101,8 @@
   <button id="fineBtn">Ora appartieni alla vecchiaia</button>
 
   <div id="scene">
+    <!-- Lettera Gufo -->
+    <img id="owlLettera" class="lettera" src="https://thumbs.dreamstime.com/b/funny-owl-flying-creature-large-eyes-wings-carry-letter-envelope-vector-illustration-cute-forest-woodland-bird-337546864.jpg" alt="Lettera Gufo">
     <!-- Immagine di Ursula al termine -->
     <img id="ursulaImg" src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ursula.png/420px-Ursula.png" alt="Ursula">
   </div>
@@ -76,15 +110,30 @@
   <script>
     const btn = document.getElementById('bonificoBtn');
     const scene = document.getElementById('scene');
+    const owl = document.getElementById('owlLettera');
     const ursula = document.getElementById('ursulaImg');
     const fineBtn = document.getElementById('fineBtn');
 
     btn.addEventListener('click', () => {
-      // Avvia animazione fittizia (qui solo timeout)
-      btn.disabled = true;
+      // Mostra e anima la lettera
+      owl.style.display = 'block';
+      owl.classList.add('vola');
 
+      // Genera scia luminosa durante il volo
+      const trailInterval = setInterval(() => {
+        const rect = owl.getBoundingClientRect();
+        const scia = document.createElement('div');
+        scia.className = 'scia';
+        scia.style.left = `${rect.left + rect.width / 2}px`;
+        scia.style.top = `${rect.top + rect.height / 2}px`;
+        scene.appendChild(scia);
+        setTimeout(() => scia.remove(), 2000);
+      }, 100);
+
+      // Alla fine dell'animazione (6s), pulisci e mostra Ursula + pulsante finale
       setTimeout(() => {
-        // Nascondi bottone iniziale e mostra Ursula e bottone finale
+        clearInterval(trailInterval);
+        owl.style.display = 'none';
         btn.style.display = 'none';
         ursula.style.display = 'block';
         fineBtn.style.display = 'block';
