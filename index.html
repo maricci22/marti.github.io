@@ -7,7 +7,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: url('marti.github.io/certificato-grunge-con-cornice-ornamentale-vintage.jpg') no-repeat center center fixed;
+      background: url('https://marti.github.io/certificato-grunge-con-cornice-ornamentale-vintage.jpg') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
       font-family: 'Brush Script MT', cursive;
@@ -119,7 +119,8 @@
 <body>
   <button id="bonificoBtn">SOTTOSCRIVO IL CONTRATTO</button>
   <div id="scene">
-    <img src="marti.github.io/owl.png.png" alt="Lettera Gufo" class="lettera" id="gufoLettera">
+    <img src="https://marti.github.io/owl.png.png" alt="Lettera Gufo" class="lettera" id="gufoLettera">
+    <img src="https://i.imgur.com/NtLbNd2.png" alt="Casa" class="casa">
     <div id="messaggioFinale">ORA APPARTIENI ALLA VECCHIAIA</div>
   </div>
 
@@ -132,7 +133,6 @@
     btn.addEventListener('click', () => {
       lettera.classList.add('vola');
 
-      // Effetto scia luminosa
       const trailInterval = setInterval(() => {
         const rect = lettera.getBoundingClientRect();
         const scia = document.createElement('div');
@@ -143,10 +143,10 @@
         setTimeout(() => scia.remove(), 2000);
       }, 100);
 
-      // Mostra messaggio dopo volo
       setTimeout(() => {
         clearInterval(trailInterval);
         messaggio.style.display = 'block';
+        btn.style.display = 'none';
       }, 6000);
     });
   </script>
