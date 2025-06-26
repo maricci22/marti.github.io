@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-            background-size: cover;
+      background-size: cover;
       overflow: hidden;
       font-family: 'Yesteryear', cursive;
     }
@@ -51,8 +51,6 @@
       z-index: 5;
     }
 
-    
-
     .scia {
       position: absolute;
       width: 10px;
@@ -74,21 +72,9 @@
     }
 
     @keyframes voloAnimato {
-      0% {
-        top: 80%;
-        left: -150px;
-        transform: rotate(0deg);
-      }
-      50% {
-        top: 20%;
-        left: 40%;
-        transform: rotate(10deg);
-      }
-      100% {
-        top: 60%;
-        left: 85%;
-        transform: rotate(-5deg);
-      }
+      0% { top: 80%; left: -150px; transform: rotate(0deg); }
+      50% { top: 20%; left: 40%; transform: rotate(10deg); }
+      100% { top: 60%; left: 85%; transform: rotate(-5deg); }
     }
 
     #messaggioFinale {
@@ -108,7 +94,8 @@
       z-index: 20;
       text-align: center;
     }
-      #ursulaImg {
+
+    #ursulaImg {
       display: none;
       position: absolute;
       top: 55%;
@@ -117,16 +104,29 @@
       width: 200px;
       z-index: 25;
     }
+
+    /* Immagine in alto alla comparsa del messaggio */
+    #topImage {
+      display: none;
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      max-width: 80%;
+      height: auto;
+    }
   </style>
 </head>
 <body>
-  <img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ursula.png/420px-Ursula.png" alt="Ursula" style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); width: 200px; z-index: 10;" />
+  <!-- Bottone per avviare l'animazione -->
+  <button id="bonificoBtn">Fai il Bonifico Magico</button>
 
-$1
   <div id="scene">
     <img id="ursulaImg" src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ursula.png/420px-Ursula.png" alt="Ursula">
     <img src="https://thumbs.dreamstime.com/b/funny-owl-flying-creature-large-eyes-wings-carry-letter-envelope-vector-illustration-cute-forest-woodland-bird-337546864.jpg" alt="Lettera Gufo" class="lettera" id="gufoLettera">
-    
+    <!-- Immagine inserita dall'utente -->
+    <img id="topImage" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUQEBAVFRUVDxUVFRUPFQ8PFRUVFRUWFhUVFRUYHSggGBomHRUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGi8lHiUtLS0tLS0tLS0tKy0rLS0tLS0vLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rLf/AABEIAKgBLAMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAABAAIDBAYFBwj/xAA5EAABAwIEBAQEBQQCAgMAAAABAAIRAxIEBSExE0FRYQYicYEykaGxFEJSwfAjctHhYvGSogcVg//EABoBAAMBAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAsEQACAgIBAgQGAQUAAAAAAAAAAQIRAy... (base64 tag continua)" alt="Utente Image">
     <div id="messaggioFinale">ORA APPARTIENI ALLA VECCHIAIA</div>
   </div>
 
@@ -135,6 +135,7 @@ $1
     const lettera = document.getElementById('gufoLettera');
     const scene = document.getElementById('scene');
     const messaggio = document.getElementById('messaggioFinale');
+    const topImg = document.getElementById('topImage');
 
     btn.addEventListener('click', () => {
       lettera.classList.add('vola');
@@ -151,6 +152,9 @@ $1
 
       setTimeout(() => {
         clearInterval(trailInterval);
+        // Mostra immagine in alto
+        topImg.style.display = 'block';
+        // Mostra messaggio e nascondi altri elementi
         messaggio.style.display = 'block';
         btn.style.display = 'none';
         lettera.style.display = 'none';
